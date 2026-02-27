@@ -22,8 +22,10 @@ if not st.session_state.otp_sent:
                 st.rerun() 
             elif response.status_code == 404:
                 st.error("Access Denied: You are not in our Cognito User Pool.")
+            elif response.status_code == 400:
+                st.error("Your Account has been blocked.")
             else:
-                st.error("Something went wrong. Please try again.")
+                st.error("Something went wrong.")
 
 else:
     st.info(f"OTP sent to {email}")
@@ -57,4 +59,5 @@ else:
     with col2:
         if st.button("Back / Reset"):
             st.session_state.otp_sent = False
+
             st.rerun()
